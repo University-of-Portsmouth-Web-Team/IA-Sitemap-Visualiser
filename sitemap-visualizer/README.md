@@ -83,6 +83,12 @@ python3 -m http.server 8000
 
 or push the folder to a GitHub repository and enable **Settings → Pages** on it — GitHub Pages serves everything over `https://`, so fetch works with no further setup. Uploading your own CSV via the **upload CSV** button works either way, since that reads the file directly rather than fetching it.
 
+### About the libraries this depends on
+
+PapaParse, D3, three.js, OrbitControls, and 3d-force-graph are **vendored directly in `js/vendor/`** rather than loaded from a CDN. This was a deliberate fix: an earlier version loaded them from jsdelivr, and on at least one network it consistently failed for one specific resource (3d-force-graph) for reasons that turned out to be a loading-order bug rather than the CDN itself — that library expects a global `THREE` to already exist when it runs, and a parallel-loading fallback I'd added could race ahead of it. Vendoring everything removes that whole class of problem: no CDN, no race condition, no dependency on the visitor's network reaching a third party at all. The trade-off is the repo is about 1.6MB heavier and you'll need to manually re-download a file if you ever want to bump a library version — for a small internal tool, that's the right trade.
+
+If you do want to update one later: download the package from [npmjs.com](https://www.npmjs.com), grab the relevant `.min.js` from its `dist/` (or `build/`) folder, and drop it into `js/vendor/` under the same filename. Keep `three.min.js` loading before `OrbitControls.js` and `3d-force-graph.min.js` in `index.html` — both of those expect `window.THREE` to already exist.
+
 ## What's deliberately not included (yet)
 
 A few visualisation styles came up in scoping and were left out of this first pass because they're close variants of something already here, with limited extra analytical value for the effort:

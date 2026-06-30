@@ -27,9 +27,25 @@
 
   <div id="readout"><span class="path">Loading sitemap…</span></div>
 
-  <!-- libraries load via js/lib-loader.js, with an automatic fallback
-       mirror if jsdelivr fails for any single resource; app scripts
-       (core.js, the views, main.js) load afterwards, in order -->
-  <script src="js/lib-loader.js"></script>
+  <!-- libraries: vendored locally in js/vendor/ (no CDN dependency).
+       Order matters — three.min.js must load before OrbitControls.js and
+       3d-force-graph.min.js, since both expect window.THREE to already exist. -->
+  <script src="js/vendor/papaparse.min.js"></script>
+  <script src="js/vendor/d3.min.js"></script>
+  <script src="js/vendor/three.min.js"></script>
+  <script src="js/vendor/OrbitControls.js"></script>
+  <script src="js/vendor/3d-force-graph.min.js"></script>
+
+  <!-- app -->
+  <script src="js/core.js"></script>
+  <script src="js/view-outline.js"></script>
+  <script src="js/view-tree.js"></script>
+  <script src="js/view-sunburst.js"></script>
+  <script src="js/view-treemap.js"></script>
+  <script src="js/view-circlepack.js"></script>
+  <script src="js/view-themes.js"></script>
+  <script src="js/view-graph3d.js"></script>
+  <script src="js/view-city.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
