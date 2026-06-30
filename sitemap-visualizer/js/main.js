@@ -93,11 +93,13 @@
   }
 
   function checkLibs(){
+    // Only Papa + d3 are required to parse data and render views 01–06.
+    // THREE / ForceGraph3D are checked independently inside view-graph3d.js
+    // and view-city.js, so a CDN hiccup on either 3D library degrades only
+    // those two tabs instead of blocking the whole app.
     const missing = [];
     if(typeof Papa === 'undefined') missing.push('PapaParse');
     if(typeof d3 === 'undefined') missing.push('D3');
-    if(typeof THREE === 'undefined') missing.push('three.js');
-    if(typeof ForceGraph3D === 'undefined') missing.push('3d-force-graph');
     if(missing.length){
       document.getElementById('readout').innerHTML =
         '<span class="path" style="color:var(--signal)">Could not load: ' + missing.join(', ') +
@@ -146,10 +148,12 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function boot(){
     buildShell();
     wireControls();
     window.SVZ.setReadout(null);
     loadSample();
-  });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();

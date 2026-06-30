@@ -30,7 +30,16 @@
     hint.textContent = 'drag to orbit · scroll to zoom · click a node to fly to it';
     container.appendChild(hint);
 
-    Graph = ForceGraph3D()(container)
+    let g;
+    try { g = ForceGraph3D()(container); }
+    catch(e1){
+      try { g = new ForceGraph3D(container); }
+      catch(e2){
+        container.innerHTML = '<div class="view-empty">3D engine loaded but failed to initialise.<br>' + (e2.message||'') + '</div>';
+        return;
+      }
+    }
+    Graph = g
       .backgroundColor('#0B1E33')
       .graphData(buildGraphData())
       .nodeId('id')
