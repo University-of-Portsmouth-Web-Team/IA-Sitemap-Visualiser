@@ -1,0 +1,118 @@
+:root{
+  --ink-deep:#0B1E33;
+  --ink-mid:#132A45;
+  --ink-panel:#16314F;
+  --line:#2C4A6E;
+  --paper:#E8EEF2;
+  --paper-dim:#92ABC4;
+  --signal:#FF6A39;
+  --signal-dim:#7A3522;
+  --mono:'IBM Plex Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+  --sans:'IBM Plex Sans', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;height:100%;background:var(--ink-deep);color:var(--paper);font-family:var(--sans);}
+body{
+  display:flex;flex-direction:column;height:100vh;overflow:hidden;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:48px 48px;
+  background-position:-1px -1px;
+  background-color:var(--ink-deep);
+}
+
+a{color:var(--paper);}
+
+/* ---------- Top instrument bar ---------- */
+#topbar{
+  display:flex;align-items:center;gap:18px;
+  padding:10px 18px;
+  background:var(--ink-mid);
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+}
+#topbar .brand{
+  font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--paper-dim);
+  white-space:nowrap;
+}
+#topbar .brand b{color:var(--paper);font-weight:600;}
+#stats{display:flex;gap:14px;font-family:var(--mono);font-size:11px;color:var(--paper-dim);flex-wrap:wrap;}
+#stats span b{color:var(--signal);font-weight:600;}
+#topbar .spacer{flex:1;}
+#searchbox{
+  background:var(--ink-deep);border:1px solid var(--line);color:var(--paper);
+  font-family:var(--mono);font-size:12px;padding:7px 10px;border-radius:3px;width:220px;
+}
+#searchbox::placeholder{color:var(--paper-dim);}
+#uploadBtn,#sampleBtn,#flagToggle,#colorModeBtn{
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;
+  background:var(--ink-deep);border:1px solid var(--line);color:var(--paper-dim);
+  padding:7px 10px;border-radius:3px;cursor:pointer;white-space:nowrap;
+}
+#uploadBtn:hover,#sampleBtn:hover,#flagToggle:hover,#colorModeBtn:hover{border-color:var(--signal);color:var(--paper);}
+#flagToggle.active,#colorModeBtn.active{border-color:var(--signal);color:var(--signal);}
+#fileInput{display:none;}
+
+/* ---------- Tab rail ---------- */
+#tabs{
+  display:flex;gap:2px;background:var(--ink-mid);border-bottom:1px solid var(--line);
+  padding:0 18px;overflow-x:auto;flex-shrink:0;
+}
+.tab{
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--paper-dim);padding:10px 14px;cursor:pointer;border-bottom:2px solid transparent;
+  white-space:nowrap;
+}
+.tab:hover{color:var(--paper);}
+.tab.active{color:var(--paper);border-bottom-color:var(--signal);}
+.tab .n{color:var(--signal-dim);margin-right:6px;}
+.tab.active .n{color:var(--signal);}
+
+/* ---------- Main canvas ---------- */
+#main{flex:1;position:relative;overflow:hidden;}
+.view{position:absolute;inset:0;display:none;overflow:auto;}
+.view.active{display:block;}
+.view svg{display:block;}
+.view-empty{
+  display:flex;align-items:center;justify-content:center;height:100%;
+  font-family:var(--mono);color:var(--paper-dim);font-size:13px;text-align:center;padding:40px;
+}
+
+/* ---------- Readout bar (signature element) ---------- */
+#readout{
+  flex-shrink:0;border-top:1px solid var(--line);background:var(--ink-mid);
+  font-family:var(--mono);font-size:11px;color:var(--paper-dim);
+  padding:8px 18px;display:flex;gap:16px;align-items:center;min-height:34px;
+}
+#readout .path{color:var(--paper);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#readout .tag{border:1px solid var(--line);border-radius:2px;padding:2px 6px;}
+#readout .tag.flagged{border-color:var(--signal);color:var(--signal);}
+#readout .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px;}
+
+/* ---------- Outline view ---------- */
+#view-outline{padding:18px 24px;font-family:var(--mono);font-size:12.5px;}
+.node-row{display:flex;align-items:center;gap:7px;padding:3px 0;cursor:default;border-radius:2px;}
+.node-row:hover{background:rgba(255,255,255,0.04);}
+.node-row .toggle{width:14px;color:var(--paper-dim);cursor:pointer;user-select:none;}
+.node-row .name{cursor:pointer;}
+.node-row .name.match{color:var(--signal);}
+.node-row .meta{color:var(--paper-dim);font-size:10.5px;}
+.node-row .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.children-wrap.collapsed{display:none;}
+
+/* ---------- Legend ---------- */
+#legend{
+  position:absolute;bottom:44px;left:14px;background:rgba(11,30,51,0.9);
+  border:1px solid var(--line);border-radius:4px;padding:10px 12px;font-family:var(--mono);
+  font-size:10.5px;color:var(--paper-dim);max-width:230px;max-height:40vh;overflow:auto;z-index:5;
+}
+#legend .item{display:flex;align-items:center;gap:6px;margin:3px 0;cursor:pointer;}
+#legend .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+#legend .title{color:var(--paper);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;font-size:10px;}
+
+/* scrollbars */
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:var(--ink-deep);}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:5px;}

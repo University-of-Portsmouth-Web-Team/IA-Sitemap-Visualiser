@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sitemap Inspector — IA visualisation toolkit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div id="topbar">
+    <div class="brand">Sitemap <b>Inspector</b></div>
+    <div id="stats"></div>
+    <div class="spacer"></div>
+    <input id="searchbox" type="text" placeholder="search pages…">
+    <button id="flagToggle" title="Highlight test/clone/error/duplicate pages">flag check</button>
+    <button id="sampleBtn" title="Reload the bundled sample sitemap">sample data</button>
+    <button id="uploadBtn" title="Upload a Slickplan CSV export">upload CSV</button>
+    <input id="fileInput" type="file" accept=".csv">
+  </div>
+
+  <div id="tabs"></div>
+
+  <div id="main"></div>
+
+  <div id="readout"><span class="path">Loading sitemap…</span></div>
+
+  <!-- libraries (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1/dist/3d-force-graph.min.js"></script>
+
+  <!-- app -->
+  <script src="js/core.js"></script>
+  <script src="js/view-outline.js"></script>
+  <script src="js/view-tree.js"></script>
+  <script src="js/view-sunburst.js"></script>
+  <script src="js/view-treemap.js"></script>
+  <script src="js/view-circlepack.js"></script>
+  <script src="js/view-themes.js"></script>
+  <script src="js/view-graph3d.js"></script>
+  <script src="js/view-city.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
